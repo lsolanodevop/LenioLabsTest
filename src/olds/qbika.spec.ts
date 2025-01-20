@@ -1,7 +1,7 @@
 import test from '../utils/fixtures';
 import { expect } from 'playwright/test';
 import { ApiClient } from '../api/api-client';
-import testData from '../utils/test-data'
+import testData from './test-data'
 
 let apiClient:ApiClient;
 const baseAPIURL = 'https://api.club-administration.qa.qubika.com/'
@@ -14,7 +14,7 @@ test.describe('Qbika: Technical Challenge', async () =>{
         await page.goto(baseURL);
     });
     
-    test('User should be able to login with a newly created user and do administrative tasks in the website: Creating Parent and Child Categories after Login',async({loginPage, mainPage,categoryPage,page})  =>{
+    test.skip('User should be able to login with a newly created user and do administrative tasks in the website: Creating Parent and Child Categories after Login',async({loginPage, mainPage,categoryPage,page})  =>{
         //API Testing
         await apiClient.authenticate();
         const userCreated = testData.userData();

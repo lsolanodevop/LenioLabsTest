@@ -2,30 +2,49 @@ import { expect , Locator , Page } from "@playwright/test";
 import Wrapper from "../base/Wrapper";
 
 export default class LoginPage extends Wrapper {
-        readonly form:Locator
-        readonly emailInput: Locator;
+        readonly userInput: Locator;
         readonly passwordInput: Locator;
-        readonly rememberMeCheckbox: Locator;
+        readonly closeButton: Locator;
         readonly submitButton: Locator;
+        readonly loggedLabel: Locator;
 
         constructor(public page:Page){
             super(page);
-            this.form = this.page.locator('app-login div').filter({ hasText: 'Qubika ClubPor favor ingrese' }).first();
-            this.emailInput = this.page.locator('input[formcontrolname="email"]');  
-            this.passwordInput = this.page.locator('input[formcontrolname="password"]');  
-            this.rememberMeCheckbox = this.page.locator('#customCheckLogin');  
-            this.submitButton = this.page.locator('button[type="submit"]');  
+            this.userInput = this.page.locator('#loginusername');  
+            this.passwordInput = this.page.locator('#loginpassword');  
+            this.closeButton = this.page.getByLabel('Log in').getByText('Close');  
+            this.submitButton = this.page.getByRole('button', { name: 'Log in' });
+            this.loggedLabel = this.page.getByRole('link', { name: 'Welcome admin' });  
         }
         
 
-        async setEmail(email:string){
-            await this.emailInput.fill(email);
+        async setUsername(username:string){
+            await this.userInput.fill(username);
         }
         async setPassword(password:string){
             await this.passwordInput.fill(password);
         }
         async submit(){
             await this.submitButton.click();
+        }
+        async validateThatUserIsLogged(){
+            try{
+            const visibility = await this.page.getByRole('link', { name: 'Welcome admin' }).innerText();
+            return  visibility;
+            } catch (error){
+                console.error("Error upon validating the logged user",error);
+                return false;
+            }
+        }
+
+       
+
+        async validateErrorMessage(){
+            return new Promise(resolve => {
+                this.page.on("dialog", async dialog => {
+                    resolve(dialog.message());
+                });
+            });
         }
     
 }

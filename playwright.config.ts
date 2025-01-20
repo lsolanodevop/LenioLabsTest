@@ -6,7 +6,7 @@ export default defineConfig({
     reporter: "html",
     use: {
       headless: false,
-      //screenshot: "on",
+      screenshot: "only-on-failure",
       //video: "on"
     }
   });

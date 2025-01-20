@@ -2,12 +2,12 @@ import {test as baseTest} from '@playwright/test';
 
 import mainPage from '../pages/main.page';
 import loginPage from '../pages/login.page';
-import categoryPage from '../pages/category.page';
+import cartPage from '../pages/cart.page';
 
 const test = baseTest.extend<{
     mainPage: mainPage;
     loginPage: loginPage;
-    categoryPage: categoryPage;
+    cartPage: cartPage;
 }>({
 mainPage: async({page}, use) => {
     await use(new mainPage(page));
@@ -16,8 +16,8 @@ mainPage: async({page}, use) => {
 loginPage: async({page}, use) => {
     await use(new loginPage(page));
 },
-categoryPage: async({page}, use) =>{
-    await use(new categoryPage(page));
+cartPage: async({page}, use) =>{
+    await use(new cartPage(page));
 }
 });
 
