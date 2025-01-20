@@ -12,4 +12,4 @@ To Execute:
 - Switch to the proper Branch "dualBoot"
 - Do the npm install - update
 - Be sure to have Playwright installed if not do npm install playwright
-- If wanted you could use npm run test to run the available test
+- If wanted you could use npm run test to run the available test and after execution it will show the report
